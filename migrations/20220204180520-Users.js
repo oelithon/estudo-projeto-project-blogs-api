@@ -12,27 +12,15 @@ module.exports = {
       displayName: {
         allowNull: false,
         type: Sequelize.STRING,
-        validate: {
-          notEmpty: true,
-          min: 8,
-        }
       },
       email: {
         allowNull: false,
         type: Sequelize.STRING,
         unique: true,
-        validate: {
-          notEmpty: true,
-          isEmail: true,
-        }
       },
       password: {
         allowNull: false,
         type: Sequelize.STRING,
-        validate: {
-          notEmpty: true,
-          min: 6,
-        }
       },
       image: {
         type: Sequelize.STRING,
