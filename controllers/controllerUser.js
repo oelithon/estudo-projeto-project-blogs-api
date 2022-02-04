@@ -20,6 +20,6 @@ module.exports = async (req, res) => {
 
     res.status(201).json({ token });
   } catch (error) {
-    res.status(401).json(error.errors);
+    res.status(401).json({ message: 'Algo deu ruim' });
   }
 };
