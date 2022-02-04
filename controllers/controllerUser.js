@@ -20,6 +20,12 @@ module.exports = async (req, res) => {
 
     res.status(201).json({ token });
   } catch (error) {
-    res.status(401).json({ message: 'Algo deu ruim' });
+    const { path } = error.errors[0];
+
+    if (path === 'displayName') {
+      res
+        .status(400)
+        .json({ message: '"displayName" length must be at least 8 characters long' });
+    }
   }
 };
