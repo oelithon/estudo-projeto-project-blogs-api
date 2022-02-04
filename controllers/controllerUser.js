@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const { requirementsValidation } = require('./validation');
 
 const secret = process.env.JWT_SECRET;
 
@@ -20,12 +21,7 @@ module.exports = async (req, res) => {
 
     res.status(201).json({ token });
   } catch (error) {
-    const { path } = error.errors[0];
-
-    if (path === 'displayName') {
-      res
-        .status(400)
-        .json({ message: '"displayName" length must be at least 8 characters long' });
-    }
+    const { status, message } = requirementsValidation(error);
+    res.status(status).json({ message });
   }
 };
