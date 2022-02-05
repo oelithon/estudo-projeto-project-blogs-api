@@ -25,6 +25,18 @@ const requirementsValidation = (error) => {
       message: '"email" must be a valid email',
     };
   }
+  if (path === 'password' && validatorKey === 'is_null') {
+    return {
+      status: 400,
+      message: '"password" is required',
+    };
+  }
+  if (path === 'password') {
+    return {
+      status: 400,
+      message: '"password" length must be 6 characters long',
+    };
+  }
 };
 
 module.exports = {
