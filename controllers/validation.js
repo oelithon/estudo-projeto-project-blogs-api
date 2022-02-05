@@ -1,5 +1,4 @@
 const validateDisplayName = (path, validatorKey) => {
-
   if (path === 'displayName' && validatorKey === 'is_null') {
     return { status: 400, message: '"displayName" is required' };
   }
@@ -42,7 +41,6 @@ const requirementsValidation = (error) => {
     validateDisplayName(path, validatorKey) || validateEmail(path, type, validatorKey) || (
       validateEmailExists(path, validatorKey)) || validatePassword(path, validatorKey) || {}
   );
-
 };
 
 module.exports = {
