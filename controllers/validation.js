@@ -25,6 +25,12 @@ const requirementsValidation = (error) => {
       message: '"email" must be a valid email',
     };
   }
+  if (path === 'Users.email' && validatorKey === 'not_unique') {
+    return {
+      status: 409,
+      message: 'User already registered',
+    };
+  }
   if (path === 'password' && validatorKey === 'is_null') {
     return {
       status: 400,
