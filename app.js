@@ -9,6 +9,10 @@ const app = express();
 app.use(bodyParser.json());
 
 app
+  .route('/user/:id')
+  .get(controllerUser.getUserById);
+
+app
   .route('/user')
   .post(controllerUser.createUser)
   .get(controllerUser.getAllUsers);
