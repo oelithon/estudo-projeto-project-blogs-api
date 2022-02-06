@@ -30,15 +30,14 @@ const getAllUsers = async (req, res) => {
   try {
     const { authorization } = req.headers;
 
-    if (!authorization) {
-      return res.status(401).json({ message: 'Token not found' });
-    }
+    if (!authorization) return res.status(401).json({ message: 'Token not found' });
+
+    jwt.verify(authorization, secret);
 
     const usersList = await User.findAll();
-
-    res.status(200).json(usersList);
+    return res.status(200).json(usersList);
   } catch (error) {
-    res.status(401).json({ message: error });
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 
