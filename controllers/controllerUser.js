@@ -48,8 +48,9 @@ const getUserById = async (req, res) => {
 
     if (!authorization) return res.status(401).json({ message: 'Token not found' });
 
+    jwt.verify(authorization, secret);
+
     const userById = await User.findOne({ where: { id } });
-    console.log(userById);
 
     if (userById === null) {
       return res.status(404).json({ message: 'User does not exist' });
@@ -57,7 +58,7 @@ const getUserById = async (req, res) => {
 
     res.status(200).json(userById);
   } catch (error) {
-    res.status(404).json({ message: 'not found' });
+    res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 
