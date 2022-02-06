@@ -28,6 +28,12 @@ const createUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      return res.status(401).json({ message: 'Token not found' });
+    }
+
     const usersList = await User.findAll();
 
     res.status(200).json(usersList);
