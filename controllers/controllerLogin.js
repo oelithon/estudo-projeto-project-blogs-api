@@ -6,7 +6,7 @@ const { emailAndPasswordValidate } = require('./validations/validateLogin');
 
 const secret = process.env.JWT_SECRET;
 
-module.exports = async (req, res) => {
+const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const errors = emailAndPasswordValidate(email, password);
 
@@ -24,4 +24,8 @@ module.exports = async (req, res) => {
   const token = jwt.sign({ username: user }, secret, jwtConfig);
 
   return res.status(200).json({ token });
+};
+
+module.exports = {
+  loginUser,
 };
