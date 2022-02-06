@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 app
   .route('/user')
-  .post(controllerUser);
+  .post(controllerUser.createUser);
 
 app
   .route('/login')
