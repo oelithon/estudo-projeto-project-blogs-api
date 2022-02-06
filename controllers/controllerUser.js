@@ -6,7 +6,7 @@ const { requirementsValidation } = require('./validations/validateUser');
 
 const secret = process.env.JWT_SECRET;
 
-module.exports = async (req, res) => {
+const createUser = async (req, res) => {
   try {
     const { displayName, email, password, image } = req.body;
 
@@ -24,4 +24,8 @@ module.exports = async (req, res) => {
     const { status, message } = requirementsValidation(error);
     res.status(status).json({ message });
   }
+};
+
+module.exports = {
+  createUser,
 };
