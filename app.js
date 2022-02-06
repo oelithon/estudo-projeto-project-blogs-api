@@ -14,6 +14,6 @@ app
 
 app
   .route('/login')
-  .post(controllerLogin);
+  .post(controllerLogin.loginUser);
 
 module.exports = app;
