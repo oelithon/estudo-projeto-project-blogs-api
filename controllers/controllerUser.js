@@ -44,6 +44,9 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
+    const { authorization } = req.headers;
+
+    if (!authorization) return res.status(401).json({ message: 'Token not found' });
 
     const userById = await User.findOne({ where: { id } });
     console.log(userById);
