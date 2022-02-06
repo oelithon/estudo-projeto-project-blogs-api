@@ -46,11 +46,17 @@ const getUserById = async (req, res) => {
     const { id } = req.params;
 
     const userById = await User.findOne({ where: { id } });
+    console.log(userById);
+
+    if (userById === null) {
+      return res.status(404).json({ message: 'User does not exist' });
+    }
+
     res.status(200).json(userById);
   } catch (error) {
-    res.status(404).json({ messsage: 'not found' });
+    res.status(404).json({ message: 'not found' });
   }
-}
+};
 
 module.exports = {
   createUser,
