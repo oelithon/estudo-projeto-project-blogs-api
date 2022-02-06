@@ -35,9 +35,9 @@ const getAllUsers = async (req, res) => {
     jwt.verify(authorization, secret);
 
     const usersList = await User.findAll();
-    return res.status(200).json(usersList);
+    res.status(200).json(usersList);
   } catch (error) {
-    return res.status(401).json({ message: 'Expired or invalid token' });
+    res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 
