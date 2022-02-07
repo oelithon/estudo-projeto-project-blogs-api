@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const controllerUser = require('./controllers/controllerUser');
 const controllerLogin = require('./controllers/controllerLogin');
 const controllerCategorie = require('./controllers/controllerCategorie');
+const controllerPost = require('./controllers/controllerPost');
 
 const app = express();
 
@@ -26,5 +27,9 @@ app
   .route('/categories')
   .post(controllerCategorie.createCategorie)
   .get(controllerCategorie.getAllCategories);
+
+app
+  .route('/post')
+  .post(controllerPost.createPost);
 
 module.exports = app;
