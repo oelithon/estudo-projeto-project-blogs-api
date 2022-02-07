@@ -25,6 +25,10 @@ const createCategorie = async (req, res) => {
 
 const getAllCategories = async (req, res) => {
   try {
+    const { authorization } = req.headers;
+
+    if (!authorization) return res.status(401).json({ message: 'Token not found' });
+
     const categorieList = await Categorie.findAll();
     res.status(200).json(categorieList);
   } catch (error) {
