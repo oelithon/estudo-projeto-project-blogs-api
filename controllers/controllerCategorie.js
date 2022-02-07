@@ -28,11 +28,12 @@ const getAllCategories = async (req, res) => {
     const { authorization } = req.headers;
 
     if (!authorization) return res.status(401).json({ message: 'Token not found' });
+    jwt.verify(authorization, secret);
 
     const categorieList = await Categorie.findAll();
     res.status(200).json(categorieList);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 
