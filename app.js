@@ -24,6 +24,7 @@ app
 
 app
   .route('/categories')
-  .post(controllerCategorie.createCategorie);
+  .post(controllerCategorie.createCategorie)
+  .get(controllerCategorie.getAllCategories);
 
 module.exports = app;
