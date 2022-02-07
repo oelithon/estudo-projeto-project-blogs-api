@@ -6,6 +6,8 @@ const createCategorie = async (req, res) => {
   try {
     const { name } = req.body;
 
+    if (!name) return res.status(400).json({ message: '"name" is required' });
+
     await Categorie.create({ name });
 
     const categorie = await Categorie.findOne({ where: { name } });
