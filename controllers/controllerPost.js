@@ -81,17 +81,17 @@ const updateBlogPost = async (req, res) => {
     const userId = jwt.verify(authorization, secret).username[0].id;
     const blogPost = await BlogPost.findByPk(id);
 
-    if (userId !== blogPost.userId) {
-      res.status(401).json({ message: 'Unauthorized user' });
-    }
+    if (userId !== blogPost.userId) res.status(401).json({ message: 'Unauthorized user' });
 
-    await BlogPost.update({ title, content }, {
-      where: {
-        id,
-      },
+    await BlogPost.update({ title, content }, { where: { id } });
+
+    const post = await BlogPost.findOne({
+      attributes: { exclude: ['id', 'published', 'updated'] },
+      where: { id },
+      include: [{ model: Categorie, as: 'categories', through: { attributes: [] } }],
     });
 
-    res.status(200).json(blogPost.userId);
+    res.status(200).json(post);
   } catch (error) {
     res.status(401).json({ message: 'Expired or invalid token' });
   }

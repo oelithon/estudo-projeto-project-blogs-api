@@ -1,3 +1,8 @@
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
+
+const secret = process.env.JWT_SECRET;
+
 const { Categorie, BlogPost } = require('../../models');
 
 const validateTitle = (req, res, next) => {
