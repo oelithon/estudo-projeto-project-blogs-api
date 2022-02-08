@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const validatePost = require('./controllers/validations/validatePost');
+
 const controllerUser = require('./controllers/controllerUser');
 const controllerLogin = require('./controllers/controllerLogin');
 const controllerCategorie = require('./controllers/controllerCategorie');
@@ -30,6 +32,11 @@ app
 
 app
   .route('/post')
-  .post(controllerPost.createPost);
+  .post(
+    validatePost.validateTitle,
+    validatePost.validateContent,
+    validatePost.ValidateCategoryIds,
+    controllerPost.createPost,
+  );
 
 module.exports = app;
