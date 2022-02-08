@@ -24,7 +24,7 @@ const createPost = async (req, res) => {
 
     res.status(201).json({ id: postId, userId, title, content });
   } catch (error) {
-    res.status(401).json(error);
+    res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 
