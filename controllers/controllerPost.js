@@ -93,7 +93,7 @@ const updateBlogPost = async (req, res) => {
 
     res.status(200).json(blogPost.userId);
   } catch (error) {
-    res.status(400).json({ message: 'deu ruim' });
+    res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 
