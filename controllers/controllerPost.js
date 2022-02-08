@@ -1,13 +1,29 @@
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
 
-const { Post } = require('../models');
+const secret = process.env.JWT_SECRET;
+
+const { BlogPost, PostCategory } = require('../models');
 
 const createPost = async (req, res) => {
-  const { title, content } = req.body;
+  try {
+    const { authorization } = req.headers;
+    const { categoryIds, title, content } = req.body;
 
-  await Post.create({ title, content });
+    const userId = jwt.verify(authorization, secret).username[0].id;
 
-  res.status(201).json({ message: 'Deu certo' });
+    const post = await BlogPost.create({ title, content, userId });
+    const postId = post.id;
+    const categoryPostIds = categoryIds.map(async (categoryId) => {
+      PostCategory.create({ categoryId, postId });
+    });
+
+    await Promise.all(categoryPostIds);
+
+    res.status(201).json({ id: postId, userId, title, content });
+  } catch (error) {
+    res.status(401).json(error);
+  }
 };
 
 module.exports = {
