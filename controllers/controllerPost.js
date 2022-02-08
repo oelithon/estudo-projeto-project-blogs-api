@@ -58,7 +58,7 @@ const getBlogPostById = async (req, res) => {
 
     jwt.verify(authorization, secret);
 
-    const blogPostList = await BlogPost.findOne({
+    const blogPost = await BlogPost.findOne({
       where: { id },
       include: [
         { model: User, as: 'user', attributes: { exclude: ['password'] } },
@@ -66,14 +66,29 @@ const getBlogPostById = async (req, res) => {
       ],
     });
 
-    res.status(200).json(blogPostList);
+    res.status(200).json(blogPost);
   } catch (error) {
     res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 
+const updateBlogPost = async (req, res) => {
+  const { id } = req.params;
+  const { authorization } = req.headers;
+
+  const userId = jwt.verify(authorization, secret).username[0].id;
+  const blogPost = await BlogPost.findByPk(id);
+
+  if (userId !== blogPost.userId) {
+    res.status(401).json({ message: 'Unauthorized user' });
+  }
+
+  res.status(200).json(blogPost.userId);
+}
+
 module.exports = {
   createPost,
   getAllBlogPosts,
   getBlogPostById,
+  updateBlogPost,
 };
