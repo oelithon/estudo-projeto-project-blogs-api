@@ -35,7 +35,11 @@ app
   .get(
     validatePost.validateBlogPostNotExists,
     controllerPost.getBlogPostById,
-  ).put(controllerPost.updateBlogPost);
+  )
+  .put(
+    validatePost.validateTokenNotFound,
+    controllerPost.updateBlogPost,
+  );
 
 app
   .route('/post')

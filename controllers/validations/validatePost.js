@@ -39,10 +39,18 @@ const validateBlogPostNotExists = async (req, res, next) => {
   next();
 };
 
+const validateTokenNotFound = async (req, res, next) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) return res.status(401).json({ message: 'Token not found' });
+  next();
+};
+
 module.exports = {
   validateTitle,
   validateContent,
   validateCategoryIds,
   validateCategoryNotExists,
   validateBlogPostNotExists,
+  validateTokenNotFound,
 };
