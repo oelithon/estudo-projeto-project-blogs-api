@@ -10,6 +10,8 @@ const createPost = async (req, res) => {
     const { authorization } = req.headers;
     const { categoryIds, title, content } = req.body;
 
+    if (!authorization) return res.status(401).json({ message: 'Token not found' });
+
     const userId = jwt.verify(authorization, secret).username[0].id;
 
     const post = await BlogPost.create({ title, content, userId });
