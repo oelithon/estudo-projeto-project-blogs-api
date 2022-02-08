@@ -37,6 +37,7 @@ app
     controllerPost.getBlogPostById,
   )
   .put(
+    validatePost.validateTitle,
     validatePost.validateTokenNotFound,
     controllerPost.updateBlogPost,
   );
