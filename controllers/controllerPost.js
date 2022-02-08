@@ -73,18 +73,22 @@ const getBlogPostById = async (req, res) => {
 };
 
 const updateBlogPost = async (req, res) => {
-  const { id } = req.params;
-  const { authorization } = req.headers;
+  try {
+    const { id } = req.params;
+    const { authorization } = req.headers;
 
-  const userId = jwt.verify(authorization, secret).username[0].id;
-  const blogPost = await BlogPost.findByPk(id);
+    const userId = jwt.verify(authorization, secret).username[0].id;
+    const blogPost = await BlogPost.findByPk(id);
 
-  if (userId !== blogPost.userId) {
-    res.status(401).json({ message: 'Unauthorized user' });
+    if (userId !== blogPost.userId) {
+      res.status(401).json({ message: 'Unauthorized user' });
+    }
+
+    res.status(200).json(blogPost.userId);
+  } catch (error) {
+    res.status(400).json({ message: 'deu ruim' });
   }
-
-  res.status(200).json(blogPost.userId);
-}
+};
 
 module.exports = {
   createPost,
