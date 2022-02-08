@@ -35,7 +35,7 @@ app
   .get(
     validatePost.validateBlogPostNotExists,
     controllerPost.getBlogPostById,
-  );
+  ).put(controllerPost.updateBlogPost);
 
 app
   .route('/post')
