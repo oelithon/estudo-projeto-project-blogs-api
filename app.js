@@ -31,6 +31,13 @@ app
   .get(controllerCategorie.getAllCategories);
 
 app
+  .route('/post/:id')
+  .get(
+    validatePost.validateBlogPostNotExists,
+    controllerPost.getBlogPostById,
+  );
+
+app
   .route('/post')
   .post(
     validatePost.validateTitle,
