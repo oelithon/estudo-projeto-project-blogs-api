@@ -35,7 +35,8 @@ app
   .post(
     validatePost.validateTitle,
     validatePost.validateContent,
-    validatePost.ValidateCategoryIds,
+    validatePost.validateCategoryIds,
+    validatePost.validateCategoryNotExists,
     controllerPost.createPost,
   );
 
