@@ -49,7 +49,31 @@ const getAllBlogPosts = async (req, res) => {
   }
 };
 
+const getBlogPostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { authorization } = req.headers;
+
+    if (!authorization) return res.status(401).json({ message: 'Token not found' });
+
+    jwt.verify(authorization, secret);
+
+    const blogPostList = await BlogPost.findOne({
+      where: { id },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Categorie, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+
+    res.status(200).json(blogPostList);
+  } catch (error) {
+    res.status(401).json({ message: 'Expired or invalid token' });
+  }
+}
+
 module.exports = {
   createPost,
   getAllBlogPosts,
+  getBlogPostById,
 };
