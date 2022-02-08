@@ -75,6 +75,7 @@ const getBlogPostById = async (req, res) => {
 const updateBlogPost = async (req, res) => {
   try {
     const { id } = req.params;
+    const { title, content } = req.body;
     const { authorization } = req.headers;
 
     const userId = jwt.verify(authorization, secret).username[0].id;
@@ -83,6 +84,12 @@ const updateBlogPost = async (req, res) => {
     if (userId !== blogPost.userId) {
       res.status(401).json({ message: 'Unauthorized user' });
     }
+
+    await BlogPost.update({ title, content }, {
+      where: {
+        id,
+      },
+    });
 
     res.status(200).json(blogPost.userId);
   } catch (error) {
