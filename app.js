@@ -38,6 +38,7 @@ app
   )
   .put(
     validatePost.validateTitle,
+    validatePost.validateContent,
     validatePost.validateTokenNotFound,
     controllerPost.updateBlogPost,
   );
