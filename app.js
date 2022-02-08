@@ -38,6 +38,7 @@ app
     validatePost.validateCategoryIds,
     validatePost.validateCategoryNotExists,
     controllerPost.createPost,
-  );
+  )
+  .get(controllerPost.getAllBlogPosts);
 
 module.exports = app;
