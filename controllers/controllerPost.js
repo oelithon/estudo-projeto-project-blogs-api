@@ -82,7 +82,7 @@ const updateBlogPost = async (req, res) => {
     const blogPost = await BlogPost.findByPk(id);
 
     if (categoryIds) return res.status(400).json({ message: 'Categories cannot be edited' });
-    if (userId !== blogPost.userId) res.status(401).json({ message: 'Unauthorized user' });
+    if (userId !== blogPost.userId) return res.status(401).json({ message: 'Unauthorized user' });
 
     await BlogPost.update({ title, content }, { where: { id } });
 
