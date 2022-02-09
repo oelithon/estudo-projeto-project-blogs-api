@@ -58,7 +58,7 @@ const getBlogPostById = async (req, res) => {
 
     jwt.verify(authorization, secret);
 
-    const blogPost = await BlogPost.findOne({
+    const post = await BlogPost.findOne({
       where: { id },
       include: [
         { model: User, as: 'user', attributes: { exclude: ['password'] } },
@@ -66,7 +66,7 @@ const getBlogPostById = async (req, res) => {
       ],
     });
 
-    res.status(200).json(blogPost);
+    res.status(200).json(post);
   } catch (error) {
     res.status(401).json({ message: 'Expired or invalid token' });
   }
